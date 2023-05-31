@@ -4,16 +4,24 @@ metadata:
   name: deploy-practica-1
   labels:
     lab: uno
+
 spec:
   replicas: 3
   selector:
     matchLabels:
       lab: uno
+
   template:
     metadata:
+      name: app-uno
       labels:
         lab: uno
+
     spec:
       containers:
       - name: app-uno
         image: cachac/kube-labs
+        ports:
+          - containerPort: 8080
+
+## kubectl expose -n practica deployment deploy-practica-1 --name practica --port 8080          
