@@ -1,0 +1,54 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: practica5jockssanalvarez
+  region: us-east-2
+  version: "1.24"
+  tags:
+    env: dev
+
+# privateCluster:
+#   enabled: true
+
+iam:
+  withOIDC: true # OPEN ID AUTH = sso
+  # serviceRoleARN: arn:aws:iam::627563248143:role/LabRole
+vpc:
+  id: vpc-088bb6e13fea94c7f
+  subnets:
+    private:
+      us-east-2a:
+        id: subnet-0d555985e0823db1a
+      us-east-2b:
+        id: subnet-0a9b06f0028158054
+      us-east-2c:
+        id: subnet-03cf1d4e57ec83d17
+
+# Opcional, en caso de crear una nueva VPC
+# availabilityZones:
+# - us-east-1a
+# - us-east-1b
+# - us-east-1c
+
+managedNodeGroups:
+  - name: large
+    maxPodsPerNode: 110
+    privateNetworking: true
+    instanceType: t2.large
+    spot: true
+    minSize: 1
+    desiredCapacity: 1
+    maxSize: 1
+    volumeSize: 20
+  
+  - name: medium
+    maxPodsPerNode: 110
+    privateNetworking: true
+    instanceType: t2.medium
+    spot: true
+    minSize: 1
+    desiredCapacity: 1
+    maxSize: 3
+    volumeSize: 20
+    
